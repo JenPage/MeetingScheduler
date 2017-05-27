@@ -1,0 +1,11 @@
+{
+    "name": "meetings/messages",
+    "description": "a messages app for meetings",
+    "type": "package",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Messages\\": "src/"
+        }
+    }
+}
