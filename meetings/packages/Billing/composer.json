@@ -1,0 +1,11 @@
+{
+  "name": "meetings/billing",
+  "description": "a billing app for meetings",
+  "type": "package",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Billing\\": "src/"
+    }
+  }
+}
