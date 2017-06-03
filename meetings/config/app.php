@@ -165,6 +165,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Messages\MessageServiceProvider::class,
+        Billing\BillingServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
 
 
@@ -233,7 +235,10 @@ return [
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Entrust' => Zizaco\Entrust\EntrustServiceProvider::class,
-
+        'Messages' => Messages\MessageServiceProvider::class,
+        'Billing' => Billing\BillingServiceProvider::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

@@ -1,4 +1,5 @@
 <?php
+namespace Messages;
 
 interface MessageMediatorInterface
 {

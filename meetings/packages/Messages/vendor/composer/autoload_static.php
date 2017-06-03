@@ -20,11 +20,34 @@ class ComposerStaticInit559209c8cfc40237cc44a24e42f5744c
         ),
     );
 
+    public static $classMap = array (
+        'Messages\\AbstractFactoryMessage' => __DIR__ . '/../..' . '/src/AbstractFactoryMessage.php',
+        'Messages\\BroadcastMessage' => __DIR__ . '/../..' . '/src/BroadcastMessage.php',
+        'Messages\\CarFactory' => __DIR__ . '/../..' . '/src/CarFactory.php',
+        'Messages\\CarInterface' => __DIR__ . '/../..' . '/src/CarInterface.php',
+        'Messages\\CarModelR' => __DIR__ . '/../..' . '/src/CarModelR.php',
+        'Messages\\CarModelS' => __DIR__ . '/../..' . '/src/CarModelS.php',
+        'Messages\\CarOrder' => __DIR__ . '/../..' . '/src/CarOrder.php',
+        'Messages\\DirectMessage' => __DIR__ . '/../..' . '/src/DirectMessage.php',
+        'Messages\\DirectMesssageMediator' => __DIR__ . '/../..' . '/src/DirectMessageMediator.php',
+        'Messages\\MailMessage' => __DIR__ . '/../..' . '/src/MailMessage.php',
+        'Messages\\MailMessageMediator' => __DIR__ . '/../..' . '/src/MailMessageMediator.php',
+        'Messages\\MessageFactory' => __DIR__ . '/../..' . '/src/MessageFactory.php',
+        'Messages\\MessageLogger' => __DIR__ . '/../..' . '/src/MessageLogger.php',
+        'Messages\\MessageMediatorInterface' => __DIR__ . '/../..' . '/src/MessageMediatorInterface.php',
+        'Messages\\MessageOrder' => __DIR__ . '/../..' . '/src/MessageOrder.php',
+        'Messages\\MessageServiceProvider' => __DIR__ . '/../..' . '/src/MessageServiceProvider.php',
+        'Messages\\Messages' => __DIR__ . '/../..' . '/src/Messages.php',
+        'Messages\\MessagesInterface' => __DIR__ . '/../..' . '/src/MessagesInterface.php',
+        'Messages\\QueueMessage' => __DIR__ . '/../..' . '/src/QueueMessage.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit559209c8cfc40237cc44a24e42f5744c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit559209c8cfc40237cc44a24e42f5744c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit559209c8cfc40237cc44a24e42f5744c::$classMap;
 
         }, null, ClassLoader::class);
     }

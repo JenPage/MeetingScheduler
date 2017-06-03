@@ -5,31 +5,26 @@ namespace App;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Contracts\Auth\Authenticatable;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
-use Illuminate\Database\Eloquent\Model;
-use MessageMediatorInterface;
+
 
 class User extends Authenticatable
 {
     use Notifiable;
     use EntrustUserTrait;
     use CanResetPassword;
-//    use AuthenticableTrait;
 
 
-
-protected $table='users';
+    protected $table='users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'company',
+        'first_name', 'last_name', 'email', 'password', 'company',
     ];
 
     /**
@@ -41,14 +36,9 @@ protected $table='users';
         'password', 'remember_token',
     ];
 
-    private $mediator;
+    public $timestamps = true;
 
-    public function __construct(array $attributes, $mediator)
-    {
-        parent::__construct($attributes);
 
-        $this->mediator = $mediator;
-    }
 
     /**
      * Get the user that owns the phone.
@@ -56,6 +46,16 @@ protected $table='users';
     public function company()
     {
         return $this->belongsToMany('App\Company', 'company_user');
+    }
+
+
+
+    /**
+     * Get the user that owns the phone.
+     */
+    public function role()
+    {
+        return $this->belongsToMany('App\Role', 'role_user');
     }
 
     public function makeCompany($company)

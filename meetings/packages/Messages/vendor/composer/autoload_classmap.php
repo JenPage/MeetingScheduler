@@ -6,4 +6,23 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Messages\\AbstractFactoryMessage' => $baseDir . '/src/AbstractFactoryMessage.php',
+    'Messages\\BroadcastMessage' => $baseDir . '/src/BroadcastMessage.php',
+    'Messages\\CarFactory' => $baseDir . '/src/CarFactory.php',
+    'Messages\\CarInterface' => $baseDir . '/src/CarInterface.php',
+    'Messages\\CarModelR' => $baseDir . '/src/CarModelR.php',
+    'Messages\\CarModelS' => $baseDir . '/src/CarModelS.php',
+    'Messages\\CarOrder' => $baseDir . '/src/CarOrder.php',
+    'Messages\\DirectMessage' => $baseDir . '/src/DirectMessage.php',
+    'Messages\\DirectMesssageMediator' => $baseDir . '/src/DirectMessageMediator.php',
+    'Messages\\MailMessage' => $baseDir . '/src/MailMessage.php',
+    'Messages\\MailMessageMediator' => $baseDir . '/src/MailMessageMediator.php',
+    'Messages\\MessageFactory' => $baseDir . '/src/MessageFactory.php',
+    'Messages\\MessageLogger' => $baseDir . '/src/MessageLogger.php',
+    'Messages\\MessageMediatorInterface' => $baseDir . '/src/MessageMediatorInterface.php',
+    'Messages\\MessageOrder' => $baseDir . '/src/MessageOrder.php',
+    'Messages\\MessageServiceProvider' => $baseDir . '/src/MessageServiceProvider.php',
+    'Messages\\Messages' => $baseDir . '/src/Messages.php',
+    'Messages\\MessagesInterface' => $baseDir . '/src/MessagesInterface.php',
+    'Messages\\QueueMessage' => $baseDir . '/src/QueueMessage.php',
 );
