@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
 use App\User;
+use Messages\Messages;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * HomeController constructor.
      */
     public function __construct()
     {
@@ -27,7 +23,18 @@ class HomeController extends Controller
      */
     public function index(User $user)
     {
-        var_dump(Auth::user());
         return view('home');
     }
+
+    public function testMessage(Messages $messages)
+    {
+        return $messages->test_facade();
+    }
+
+    public function testOtherMessage(Messages $messages)
+    {
+        return $messages->test_other_facade();
+    }
+
+
 }

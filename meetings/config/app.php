@@ -167,6 +167,8 @@ return [
         Messages\MessageServiceProvider::class,
         Billing\BillingServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\EventClassServiceProvider::class,
+
 
 
 
@@ -239,6 +241,7 @@ return [
         'Billing' => Billing\BillingServiceProvider::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'EventClass'=> App\Facades\EventClass::class,
     ],
 
 ];

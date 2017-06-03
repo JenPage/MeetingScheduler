@@ -21,10 +21,14 @@
         "classmap": [
             "database"
         ],
+        "files" : [
+            "app/Helpers/EventClass.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Messages\\": "packages/Messages/src/",
-            "Billing\\": "packages/Billing/src/"
+            "Billing\\": "packages/Billing/src/",
+            "EventClass\\": "app/Helpers/"
 
         }
     },

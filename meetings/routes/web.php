@@ -16,6 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/event', function(){
+    $facade = EventClass::createEvent('test facade');
+    echo $facade;
+});
+Route::get('/testMessage', 'HomeController@testMessage');
+
+Route::get('/testOtherMessage', 'HomeController@testOtherMessage');
 
 
 // API route group that we need to protect
