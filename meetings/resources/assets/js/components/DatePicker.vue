@@ -108,7 +108,7 @@
                     address: place_address,
                     from: this.date_from,
                     to: this.date_to,
-                    type: this.type,
+                    type: this.type
                 }).then(function(response){
                     console.log(response);
                         }.bind(this))
@@ -119,10 +119,10 @@
                 axios.get('/get-meetings/')
                         .then(function(response){
 
-                            location.reload();
-                            var event = document.getElementById('edit-event');
-                            event.style.display="block";
-                            setTimeout(function(){ event.style.display="none"; }, 5000);
+//                            location.reload();
+//                            var event = document.getElementById('edit-event');
+//                            event.style.display="block";
+//                            setTimeout(function(){ event.style.display="none"; }, 5000);
 
 
                         }.bind(this))

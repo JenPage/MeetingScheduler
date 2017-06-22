@@ -4,7 +4,7 @@ var io = require('socket.io')(server);
 
 var Redis = require('ioredis');
 
-var redis = new Redis();
+var redis = new Redis({PORT: 2722});
 
 //redis.subscribe('test-channel');
 redis.subscribe('get-messages');

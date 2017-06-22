@@ -18,8 +18,11 @@ class CreateMeetingsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('type');
             $table->integer('owner');
-            $table->string('date');
+            $table->string('date_from');
+            $table->string('date_to');
             $table->string('location');
+            $table->string('placeid');
+            $table->string('description');
             $table->timestamps();
         });
     }

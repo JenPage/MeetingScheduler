@@ -54561,12 +54561,12 @@ var state = {
 
             axios.get('/get-meetings/').then(function (response) {
 
-                location.reload();
-                var event = document.getElementById('edit-event');
-                event.style.display = "block";
-                setTimeout(function () {
-                    event.style.display = "none";
-                }, 5000);
+                //                            location.reload();
+                //                            var event = document.getElementById('edit-event');
+                //                            event.style.display="block";
+                //                            setTimeout(function(){ event.style.display="none"; }, 5000);
+
+
             }.bind(this)).catch(function (error) {
                 console.log(error);
             });
