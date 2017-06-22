@@ -2,11 +2,9 @@
 namespace Messages;
 
 use Messages\MessagesInterface;
+use Messages\Models\Messages as Message;
 
 class BroadcastMessage implements MessagesInterface{
-
-    protected $type = 'mail';
-
 
     /**
      * @param $type
@@ -16,10 +14,19 @@ class BroadcastMessage implements MessagesInterface{
      * @param $from
      * @return string
      */
-    public function create($type, $subject='subject of mail message', $body, $to, $from)
+    public function create_message($type, $subject, $body, $status, $company, $to, $from)
     {
-
-        return 'Broadcast Message';
+            $message = [
+                'type' => $type,
+                'subject' => $subject,
+                'body' => $body,
+                'status' => $status,
+                'recipient_company' => $company,
+                'recipient_user' => $to,
+                'sender' => $from,
+            ];
+            Message::create($message);
+            return 'message '.$status;
     }
 
     /**

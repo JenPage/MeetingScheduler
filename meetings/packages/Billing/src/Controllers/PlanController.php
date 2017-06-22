@@ -1,9 +1,9 @@
 <?php
 namespace Billing\Controllers;
-use bar\baz\source_with_namespace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
+use App\Company;
 use Billing\PlanInterface;
 use App\Role;
 use Billing\MessagePlan;
@@ -12,6 +12,7 @@ use Billing\EventPlan;
 use Billing\BasicPlan;
 use Billing\Models\Plan;
 use Billing\Models\Subscription;
+use Illuminate\Support\Facades\DB;
 
 
 class PlanController extends \App\Http\Controllers\Controller
@@ -30,56 +31,53 @@ class PlanController extends \App\Http\Controllers\Controller
      * @param Plan $model
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function signup(Request $request, Plan $model)
+    public function signup(Request $request, Plan $model,  User $users, Company $company, Subscription $subscription)
     {
-
         if(Auth::guest())
         {
             return view('welcome');
 
         }else{
+            $user = Auth::user();
+            $compid = Auth::user()->company->id;
+            $subscription = $subscription->where('company_id', '=', $compid)->get();
 
-            $profile = Auth::user();
-
-            $myuser = User::where('id', 1)->first();
-
-            $roles = $myuser['role'];
-
-            $role = [];
-
-            foreach($roles as $role)
-            {
-              //  var_dump($role['attributes']);
-            }
-
-//            if($role['attributes']['name'] == 'member')
-//            {
-//                $plan = 'free';
-//            }elseif{
-//
-//            }
+           // dd($subscription);
 
             $user = [
-                'firstname' => $profile->first_name,
-                'lastname' => $profile->last_name,
-                'company' => $profile->company,
-                'plan' => $role['attributes']['name'],
+                'first_name' => $user->first_name,
+                'lastname' => $user->last_name,
+                'company' => $user->company->name,
+
                 'signup_options' => [
                     'message_options' =>[
                         $message_options = $model->where('type', '=', 'messages')->get()->toArray()
                     ],
                     'users_options' =>
-                    [
-                        $user_options = $model->where('type', '=', 'users')->get()->toArray()
-                    ],
+                        [
+                            $user_options = $model->where('type', '=', 'users')->get()->toArray()
+                        ],
                     'event_options' =>
-                    [
-                        $event_options = $model->where('type', '=', 'events')->get()->toArray()
-                    ]
+                        [
+                            $event_options = $model->where('type', '=', 'events')->get()->toArray()
+                        ]
                 ]
             ];
 
-            return view('billing.signupform', compact('user'));
+            if(count($subscription) > 1)
+            {
+                if($subscription->owner == Auth::user()->id)
+                {
+                    $user['plan'] = 'Paying Member';
+                    $user['subscriptions'] = $subscription;
+                }
+
+                return view('billing.signupform', compact('user'));
+            }else{
+                $user['subscriptions'] = '';
+                $user['plan'] = 'Free Member';
+                return view('billing.signupform', compact('user'));
+            }
         }
     }
 
@@ -94,12 +92,13 @@ class PlanController extends \App\Http\Controllers\Controller
         $user_opts = $request->users_options;
         $event_opts = $request->event_options;
 
-        $user_plans =   (new EventPlan($event_opts, new UserPlan($user_opts, new MessagePlan($message_opts, new BasicPlan()))))->getPlan($opts=null, $model);
+        $user_plans = (new EventPlan($event_opts, new UserPlan($user_opts, new MessagePlan($message_opts, new BasicPlan()))))->getPlan($opts=null, $model);
         $cost = array_sum([$user_plans['events']['cost'], $user_plans['messages']['cost'], $user_plans['users']['cost']]);
+
         $user_plan = [
-            'message_type' => $user_plans['messages']['type'],
-            'event_type' => $user_plans['events']['type'],
-            'user_type' => $user_plans['users']['type'],
+            'message_type' => $user_plans['messages']['id'],
+            'event_type' => $user_plans['events']['id'],
+            'user_type' => $user_plans['users']['id'],
             'owner' => Auth::user()->id,
             'status' => 'live',
             'payment_amount' => $cost
@@ -121,16 +120,29 @@ class PlanController extends \App\Http\Controllers\Controller
         $current_plan = $subscription->where('owner', '=', Auth::user()->id)->first();
         if($current_plan){
             $current_plan->update($user_plan);
+            $currentuser = $user->where('id', '=', Auth::user()->id)->first();
+
+            $owner = Role::where('name', '=', 'owner')->first();
+            $manager = Role::where('name', '=', 'manager')->first();
+            $member = Role::where('name', '=', 'member')->first();
+            $currentuser->roles()->detach();
+            $currentuser->roles()->save($owner);
+            $currentuser->roles()->save($manager);
+            $currentuser->roles()->save($member);
 
         }else{
             $subscription->create($user_plan);
             $currentuser = $user->where('id', '=', Auth::user()->id)->first();
-            $role = Role::where('name', '=', 'owner')->first();
+            $owner = Role::where('name', '=', 'owner')->first();
+            $manager = Role::where('name', '=', 'manager')->first();
+            $member = Role::where('name', '=', 'member')->first();
             $currentuser->roles()->detach();
-            $currentuser->roles()->save($role);
+            $currentuser->roles()->save($owner);
+            $currentuser->roles()->save($manager);
+            $currentuser->roles()->save($member);
         }
 
-        return view('billing.confirm', compact('confirmation'));
+        return view('billing.confirm', compact('confirmation', 'user'));
     }
 }
 

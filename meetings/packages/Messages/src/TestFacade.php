@@ -11,7 +11,7 @@ namespace Messages;
 
 class TestFacade
 {
-    public function testMessageFacade()
+    public static function testMessageFacade()
     {
         return 'test Message Facade';
     }

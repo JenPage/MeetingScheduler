@@ -21,7 +21,7 @@ class CreateMessagesTable extends Migration
             $table->integer('recipient_company');
             $table->string('subject');
             $table->string('body');
-            $table->boolean('marked_read');
+            $table->string('status');
             $table->timestamps();
         });
     }

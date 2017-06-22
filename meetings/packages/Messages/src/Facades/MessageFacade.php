@@ -1,5 +1,5 @@
 <?php namespace Message;
-
+namespace Messages\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

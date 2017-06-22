@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label for="FirstName" class="col-sm-3 control-label pull-left">First Name</label>
                             <div class="col-sm-7">
-                                <input class="form-control" name="firstname" value="{{$user['firstname']}}" />
+                                <input class="form-control" name="firstname" value="{{$user['first_name']}}" />
                             </div>
                         </div>
                         <br/>
@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label for="Company" class="col-sm-3 control-label pull-left"> Company</label>
                             <div class="col-sm-7">
-                                <input class="form-control" name="company" value="{{$user['company'][0]->name}}" />
+                                <input class="form-control" name="company" value="{{$user['company']}}" />
                             </div>
                         </div>
                         <br/>
@@ -39,6 +39,14 @@
                             <div class="col-sm-7">
                                 <input class="form-control" name="plan" value="{{$user['plan']}}" />
                             </div>
+
+                            @if($user['subscriptions'])
+                                <div class="col-sm-7">
+                                @foreach($user['subscriptions'] as $subscription)
+                                    {{$subscription}}
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                         <br/>
                         <div class="clearfix"></div>
@@ -63,8 +71,8 @@
                         @endforeach
 
                         <div class="form-group">
-                            <div class="col-sm-10 col-sm-10 text-center">
-                                {!! Form::button('<i class="fa fa-save"></i> Save',['class'=>'btn','type'=>'submit']) !!}
+                            <div class="col-sm-12 text-center">
+                                {!! Form::button('<i class="fa fa-save"></i> Save',['class'=>'btn, default','type'=>'submit']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}

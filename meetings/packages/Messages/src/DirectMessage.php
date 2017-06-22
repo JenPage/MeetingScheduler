@@ -2,12 +2,9 @@
 namespace Messages;
 
 use Messages\MessagesInterface;
+use Messages\Models\Messages as Message;
 
 class DirectMessage implements MessagesInterface{
-
-
-     protected $type = 'direct';
-
 
     /**
      * @param $type
@@ -17,18 +14,27 @@ class DirectMessage implements MessagesInterface{
      * @param $from
      * @return string
      */
-    public function create($type, $subject, $body, $to, $from)
+    public function create_message($type, $subject, $body, $status, $company, $to, $from)
     {
-        return 'Direct Message';
-    }
+        $message = [
+            'type' => $type,
+            'subject' => $subject,
+            'body' => $body,
+            'status' => $status,
+            'recipient_company' => $company,
+            'recipient_user' => $to,
+            'sender' => $from,
+        ];
 
+        Message::create($message);
+        return 'message created';
+    }
 
     /**
      * @return string
      */
     public function sendit()
     {
-
         return 'DirectMessage';
     }
 }

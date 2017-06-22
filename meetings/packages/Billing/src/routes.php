@@ -13,9 +13,8 @@ Route::get('plans', function(){
 
 Route::get('subscription', 'Billing\Controllers\PlanController@index');
 
-Route::get('signup/{plan}', 'Billing\Controllers\PlanController@signup');
+Route::get('/signup', 'Billing\Controllers\PlanController@signup');
 
 Route::post('save/plan', 'Billing\Controllers\PlanController@save')->name('save.plan');
-
 
 });

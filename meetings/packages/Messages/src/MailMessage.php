@@ -2,6 +2,7 @@
 namespace Messages;
 
 use Messages\MessagesInterface;
+use Messages\Models\Messages as Message;
 
 class MailMessage implements MessagesInterface{
 
@@ -10,16 +11,26 @@ class MailMessage implements MessagesInterface{
 
     /**
      * @param $type
-     * @param string $subject
+     * @param $subject
      * @param $body
      * @param $to
      * @param $from
      * @return string
      */
-    public function create($type, $subject='subject of mail message', $body, $to, $from)
+    public function create_message($type, $subject, $body, $status, $company, $to, $from)
     {
+        $message = [
+            'type' => $type,
+            'subject' => $subject,
+            'body' => $body,
+            'status' => $status,
+            'recipient_company' => $company,
+            'recipient_user' => $to,
+            'sender' => $from,
+        ];
 
-        return 'Mail Message';
+        Message::create($message);
+        return 'message created';
     }
 
     /**

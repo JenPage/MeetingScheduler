@@ -39,10 +39,11 @@ class RegisterController extends Controller
 
     protected $company;
 
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * RegisterController constructor.
+     * @param Request $request
+     * @param Company $company
      */
     public function __construct(Request $request, Company $company)
     {
@@ -81,24 +82,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
        $user =  User::create([
            'first_name' => $data['first_name'],
            'last_name' => $data['last_name'],
            'email' => $data['email'],
            'password' => bcrypt($data['password']),
         ]);
-        var_dump($data['company']);
 
         if(Company::where('name', '=', $data['company'])->first())
         {
             $user_company = Company::where('name', '=',$data['company'])->first();
-            $user->company()->attach($user_company->id);
+            $user->update(['company_id'=> $user_company->id]);
+            $role = Role::where('name', '=', 'member')->first();
+            $user->attachRole($role);
+
         }else{
+            $company = Company::create(['name' => $data['company'], 'owner' => $user->id]);
 
-            $user_company = Company::create(['name' => $data['company']]);
-
-            $user->company()->attach($user_company->id);
+            $user->update(['company_id' => $company->id]);
 
             $role = Role::where('name', '=', 'member')->first();
 

@@ -10,6 +10,7 @@ class MessageMaker {
     protected $subject;
     protected $type;
     protected $body;
+    protected $status;
     protected $to;
     protected $from;
 
@@ -21,8 +22,9 @@ class MessageMaker {
 
     public function make($model=null)
     {
-        $message = $this->message->factory($model);
-        $this->messageTypes[]=$message->create($this->type, $this->subject, $this->body, $this->to, $this->from);
+
+        return $message = $this->message->factory($model);
+       // $this->messageTypes[]=$message->create($this->type, $this->subject, $this->body, $this->to, $this->from);
     }
 
     public function getMessageTypes()

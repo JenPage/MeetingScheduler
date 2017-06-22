@@ -14,7 +14,7 @@ class Plan extends Model{
      * @var array
      */
     protected $fillable = [
-        'type', 'name', 'description', 'cost',
+       'id', 'type', 'name', 'description', 'cost',
     ];
 
     public $timestamps = true;
@@ -29,6 +29,8 @@ class Plan extends Model{
         $messageplan = $plan['attributes'];
 
         $plans = [
+            'id' => $plan['id'],
+
             'type' => $plan['type'],
 
             'description' => $plan['description'],

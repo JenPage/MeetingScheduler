@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Permission;
 use App\Role;
 use App\User;
+use App\Company;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,10 +18,7 @@ use Log;
 class JwtAuthenticateController extends Controller
 {
 
-    public function index()
-    {
-        return response()->json(['auth'=>Auth::user(), 'users'=>User::all()]);
-    }
+
 
     public function authenticate(Request $request)
     {
@@ -35,44 +33,41 @@ class JwtAuthenticateController extends Controller
             // something went wrong
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
+        // if no errors are encountered we can return a JWT
+        return response()->json(compact('token'));
+    }
 
-// if no errors are encountered we can return a JWT
-return response()->json(compact('token'));
-}
+    public function createRole(Request $request){
+        $role = new Role();
+        $role->name = $request->input('name');
+        $role->save();
 
-public function createRole(Request $request){
-    $role = new Role();
-    $role->name = $request->input('name');
-    $role->save();
+        return response()->json("created");
+    }
 
-    return response()->json("created");
-}
+    public function createPermission(Request $request){
+        $viewUsers = new Permission();
+        $viewUsers->name = $request->input('name');
+        $viewUsers->save();
 
-public function createPermission(Request $request){
+        return response()->json("created");
+    }
 
-    $viewUsers = new Permission();
-    $viewUsers->name = $request->input('name');
-    $viewUsers->save();
+    public function assignRole(Request $request){
+        $user = User::where('email', '=', $request->input('email'))->first();
 
-    return response()->json("created");
-}
+        $role = Role::where('name', '=', $request->input('role'))->first();
+        //$user->attachRole($request->input('role'));
+        $user->roles()->attach($role->id);
 
-public function assignRole(Request $request){
-    $user = User::where('email', '=', $request->input('email'))->first();
+        return response()->json("created");
+    }
 
-    $role = Role::where('name', '=', $request->input('role'))->first();
-    //$user->attachRole($request->input('role'));
-    $user->roles()->attach($role->id);
-
-    return response()->json("created");
-}
-
-public function attachPermission(Request $request){
-    $role = Role::where('name', '=', $request->input('role'))->first();
-    $permission = Permission::where('name', '=', $request->input('name'))->first();
-    $role->attachPermission($permission);
-
-    return response()->json("created");
+    public function attachPermission(Request $request){
+        $role = Role::where('name', '=', $request->input('role'))->first();
+        $permission = Permission::where('name', '=', $request->input('name'))->first();
+        $role->attachPermission($permission);
+        return response()->json("created");
 }
 
 }

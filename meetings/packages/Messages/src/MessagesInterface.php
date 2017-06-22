@@ -3,7 +3,7 @@ namespace Messages;
 
 interface MessagesInterface{
 
-    function create($type, $subject, $body, $to, $from);
+    function create_message($type, $subject, $body, $status, $company, $to, $from);
     function sendit();
 
 }

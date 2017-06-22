@@ -12,7 +12,7 @@ class Company extends Model{
      * @var array
      */
     public $fillable = [
-        'name'
+        'name', 'owner'
     ];
 
 
@@ -22,7 +22,7 @@ class Company extends Model{
      */
     public function users()
     {
-        return $this->belongstoMany('App\Users', 'company_user');
+        return $this->hasMany('App\User');
     }
 
 }

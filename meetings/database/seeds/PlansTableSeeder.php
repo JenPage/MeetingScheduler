@@ -23,8 +23,8 @@ class PlansTableSeeder extends Seeder
             ['type' => 'events', 'name'=> 'appointment events', 'description' => 'an events calendar with unlimited slots with signup for one user', 'cost' => '50.00'],
             ['type' => 'events', 'name'=> 'meeting events', 'description' => 'an events calendar with unlimited slots and signup for multiple users', 'cost' => '75.00'],
             ['type' => 'users', 'name'=> 'free users', 'description' => 'free for you with limited member users', 'cost' => '0.00'],
-            ['type' => 'users', 'name'=> 'small users', 'description' => 'unlimited member users', 'cost' => '50.00'],
-            ['type' => 'users', 'name'=> 'large users', 'description' => 'unlimited member users, unlimited manager users', 'cost' => '75.00'],
+            ['type' => 'users', 'name'=> 'small business users', 'description' => 'unlimited member users', 'cost' => '50.00'],
+            ['type' => 'users', 'name'=> 'enterprise users', 'description' => 'unlimited member users, unlimited manager users', 'cost' => '75.00'],
 
 
 
@@ -33,7 +33,7 @@ class PlansTableSeeder extends Seeder
         // Loop through each user above and create the record for them in the database
         foreach ($plans as $plan)
         {
-            Billing\MessagePlan::create($plan);
+            Billing\Models\Plan::create($plan);
         }
 
 

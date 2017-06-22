@@ -1,7 +1,7 @@
 <?php
 
 namespace Messages;
-use Messages\Messages;
+use Messages;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -26,7 +26,7 @@ class MessageServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton('messages', function () {
+        $this->app->singleton('Messages', function () {
             return new Messages();
         });
 

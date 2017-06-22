@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Messages;
 
 
 
@@ -16,15 +17,16 @@ class User extends Authenticatable
     use EntrustUserTrait;
     use CanResetPassword;
 
-
     protected $table='users';
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'company',
+        'first_name', 'last_name', 'email', 'password', 'company_id',
     ];
 
     /**
@@ -38,16 +40,13 @@ class User extends Authenticatable
 
     public $timestamps = true;
 
-
-
     /**
-     * Get the user that owns the phone.
+     * Get the user's company
      */
     public function company()
     {
-        return $this->belongsToMany('App\Company', 'company_user');
+        return $this->belongsTo('App\Company', 'company_id');
     }
-
 
 
     /**
@@ -58,9 +57,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role', 'role_user');
     }
 
-    public function makeCompany($company)
-    {
 
+    public function messages()
+    {
+        return $this->hasMany('Messages\Models\Messages', 'sender', 'id');
+    }
+
+    public function meetings()
+    {
+        return $this->hasMany('App\MeetingUser', 'user_id');
     }
 
 

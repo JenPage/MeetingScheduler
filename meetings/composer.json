@@ -6,9 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "hoa/websocket": "~3.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.2.0",
+        "predis/predis": "^1.1",
         "tymon/jwt-auth": "0.5.*",
         "zizaco/entrust": "dev-laravel-5"
     },
@@ -28,7 +30,8 @@
             "App\\": "app/",
             "Messages\\": "packages/Messages/src/",
             "Billing\\": "packages/Billing/src/",
-            "EventClass\\": "app/Helpers/"
+            "EventClass\\": "app/Helpers/",
+            "Events\\": "packages/Meetings/src/"
 
         }
     },

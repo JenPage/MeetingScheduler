@@ -15,10 +15,11 @@ class CreateSubscriptionTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('message_type');
-            $table->string('event_type');
-            $table->string('user_type');
-            $table->string('owner');
+            $table->integer('message_type');
+            $table->integer('event_type');
+            $table->integer('user_type');
+            $table->integer('owner');
+            $table->integer('company_id');
             $table->string('status');
             $table->timestamp('payment_due');
             $table->float('payment_amount');

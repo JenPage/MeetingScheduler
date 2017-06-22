@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 use Messages\Messages;
 
 class HomeController extends Controller
@@ -23,7 +25,11 @@ class HomeController extends Controller
      */
     public function index(User $user)
     {
-        return view('home');
+        $user = Auth::user();
+
+        //$token = JWTAuth::fromUser($user);
+
+        return view('home', compact('user'));
     }
 
     public function testMessage(Messages $messages)

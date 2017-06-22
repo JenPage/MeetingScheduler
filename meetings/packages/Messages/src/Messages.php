@@ -16,23 +16,16 @@ class Messages
 
     public function test_other_facade()
     {
+        return 'blah';
         $testotherfacade = new TestOtherFacade;
 
         return $testotherfacade->testOtherFacade();
     }
 
-    public function factory()
+    public static function factory($type)
     {
         $message = new MessageMaker();
 
-        $message->make('DirectMessage');
-        var_dump($message->getMessageTypes());
-
-        $message->make('MailMessage');
-        var_dump($message->getMessageTypes());
-
-        $message->make('BroadcastMessage');
-        var_dump($message->getMessageTypes());
-
+        return $message->make($type);
     }
 }
