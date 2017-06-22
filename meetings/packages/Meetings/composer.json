@@ -1,0 +1,11 @@
+{
+  "name": "meetings/Meetings",
+  "description": "a events app for meetings",
+  "type": "package",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Meetings\\": "src/"
+    }
+  }
+}
